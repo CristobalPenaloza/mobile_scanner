@@ -178,10 +178,11 @@ class MobileScanner(private val activity: Activity, private val textureRegistry:
 
                 // Build the analyzer to be passed on to MLKit
                 val analysisBuilder = ImageAnalysis.Builder()
+                        .setTargetResolution(Size(3072, 2304))
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                if (ratio != null) {
-                    analysisBuilder.setTargetAspectRatio(ratio)
-                }
+                //if (ratio != null) {
+                //    analysisBuilder.setTargetAspectRatio(ratio)
+                //}
                 val analysis = analysisBuilder.build().apply { setAnalyzer(executor, analyzer) }
 
                 // Select the correct camera

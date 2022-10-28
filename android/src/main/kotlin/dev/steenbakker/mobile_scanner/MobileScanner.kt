@@ -157,17 +157,16 @@ class MobileScanner(private val activity: Activity, private val textureRegistry:
                 }
                 cameraProvider!!.unbindAll()
                 textureEntry = textureRegistry.createSurfaceTexture()
-                if (textureEntry == null) {
-                    result.error("textureEntry", "textureEntry is null", null)
-                    return@addListener
-                }
-
-
 
                 // Preview
                 // TODO: Continuar con esto: https://play.google.com/console/u/0/developers/8356696745023669759/app/4972745165000930959/pre-launch-report/details?tab=stability&artifactId=4859736706297864423
                 val surfaceProvider = Preview.SurfaceProvider { request ->
-                    val texture = textureEntry?.surfaceTexture() ?: return@addListener
+                    if (textureEntry == null) {
+                        result.error("textureEntry", "textureEntry is null", null)
+                        return@addListener
+                    }
+
+                    val texture = textureEntry!!.surfaceTexture()
                     texture.setDefaultBufferSize(request.resolution.width, request.resolution.height)
                     val surface = Surface(texture)
                     request.provideSurface(surface, executor) { }

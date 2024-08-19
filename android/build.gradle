@@ -25,6 +25,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 32
+    namespace 'dev.steenbakker.mobile_scanner'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
